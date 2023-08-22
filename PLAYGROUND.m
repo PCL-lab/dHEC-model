@@ -2,20 +2,24 @@
 
 model_version_id = 4;
 fitted_parameters = [1, 2, 1.1, 0.9, 0.3, 12, 5, 0.9];
+% Fitted parameters order: h, k, c, w, w_E, sigma_H, sigma_E, d_f
+% fitted_parameter_names = {'h', 'k', 'c', 'w', 'w_E', 'sigma_H', 'sigma_E', 'd_f'};
 
 if model_version_id == 4
     modelfun = @modelfun_dHEC;
-    fitted_parameters = fitted_parameters(:);
+    filtered_parameter_ids = 1:8;
 elseif model_version_id == 3
     modelfun = @modelfun_dHC;
-    fitted_parameters = fitted_parameters([1 2 3 4 6 8]);
+    filtered_parameter_ids = [1 2 3 4 6 8];
 elseif model_version_id == 2
     modelfun = @modelfun_HEC;
-    fitted_parameters = fitted_parameters([1 2 3 4 5 6 7]);
+    filtered_parameter_ids = [1 2 3 4 5 6 7];
 elseif model_version_id == 1
     modelfun = @modelfun_HC;
-    fitted_parameters = fitted_parameters([1 2 3 4 6]);
+    filtered_parameter_ids = [1 2 3 4 6];
 end
+
+fitted_parameters = fitted_parameters(filtered_parameter_ids);
 
 does_use_saccades = 0;
 AV_stimulus_azimuths = 7.5*(-1:1);
